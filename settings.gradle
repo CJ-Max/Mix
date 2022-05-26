@@ -1,3 +1,4 @@
+include ':cknife_inject'
 include ':app'
 rootProject.name = "mix"
 include ':cknife_annotation'

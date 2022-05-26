@@ -1,7 +1,5 @@
 package com.cknife_annotation
 
-@Retention(AnnotationRetention.BINARY)
+@Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FIELD)
-annotation class BindView {
-    var value: Int
-}
+annotation class BindView (val value: Int)

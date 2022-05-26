@@ -56,4 +56,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    implementation project(":cknife_annotation")
+    kapt project(':cknife_processor')
+    implementation project(':cknife_inject')
 }
