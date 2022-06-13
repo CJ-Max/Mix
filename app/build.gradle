@@ -2,6 +2,15 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+apply plugin:MyPlugin
+
+class MyPlugin implements Plugin<Project> {
+
+    @Override
+    void apply(Project project) {
+        println "MyPlugin start mixapp"
+    }
+}
 
 android {
     compileSdkVersion 31

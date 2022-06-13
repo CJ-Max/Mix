@@ -1,4 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin:MyPlugin
+
 buildscript {
     ext.kotlin_version = "1.4.32"
     repositories {
@@ -13,7 +15,15 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+class MyPlugin implements Plugin<Project> {
 
+    @Override
+    void apply(Project project) {
+        println "MyPlugin start mix"
+    }
+}
+
+println("test cjj mix")
 allprojects {
     repositories {
         google()
@@ -24,3 +34,56 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// setting脚本执行之前，这个写在setting脚本中没意义，因为已经开始执行了，通常也用不上
+gradle.beforeSettings {
+    println "beforeSettings"
+}
+
+// setting 脚本执行完成之后调用
+gradle.settingsEvaluated {
+    println "settingsEvaluated"
+}
+
+// 每个module的build.gradle执行之前都会调用，闭包会传入当前的project对象作为参数
+// 闭包需要看官方文档的说明
+// Adds a closure to be called immediately before a project is evaluated. The project is passed to the closure as a parameter.
+gradle.beforeProject { project ->
+    println "beforeProject $project"
+}
+
+// 每个module的build.gradle脚本执行完成后调用，参数同beforeProject
+gradle.afterProject { project ->
+    println "afterProject $project"
+}
+
+// 所有module的build.gradle脚本执行完成之后
+gradle.projectsEvaluated {
+    println "projectsEvaluated"
+}
+
+// task有向无环图构建完成，配置阶段完成，TaskExecutionGraph对象作为对象传入闭包
+gradle.taskGraph.whenReady { graph ->
+    println "taskGraph.whenReady ${graph.getAllTasks()}"
+}
+
+// 构建任务完成
+gradle.buildFinished {
+    println "buildFinished"
+}
+
+gradle.allprojects(new Action<Project>() {
+    @Override
+    void execute(Project project) {
+        // 回调时机也是在单个module的build.gradle脚本执行之前，在gradle.beforeProject之后，
+        // 跟gradle.beforeProject的hook效果基本一样
+        project.beforeEvaluate {
+            println "project.beforeEvaluate $it"
+        }
+        // 同上，跟gradle.afterProject对应
+        project.afterEvaluate {
+            println "project.afterEvaluate $it"
+        }
+    }
+})
+

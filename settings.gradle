@@ -1,2 +1,3 @@
 include ':app'
 rootProject.name = "mix"
+println("cjj setting.gradle ")
