@@ -1,19 +1,16 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
-apply plugin:MyPlugin
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.cj.plugin'
 
-class MyPlugin implements Plugin<Project> {
-
-    @Override
-    void apply(Project project) {
-        println "MyPlugin start mixapp"
-    }
-}
+//plugins {
+//    id 'com.android.application'
+//    id 'kotlin-android'
+////    id 'com.cjj.mylibrary.MyPlugin'
+//    id 'com.cj.plugin'
+//}
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {

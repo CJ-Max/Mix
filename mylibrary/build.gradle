@@ -1,0 +1,46 @@
+// gradle plugin 插件 https://docs.gradle.org/current/userguide/java_gradle_plugin.html
+plugins {
+    id 'java-gradle-plugin'
+    id 'kotlin'
+    id 'groovy'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    google()
+    jcenter()
+}
+
+gradlePlugin {
+    plugins {
+        MyPlugin {
+            id ='com.cjj.mylibrary.MyPlugin'
+            implementationClass='com.cjj.mylibrary.MyPlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation('com.android.tools.build:gradle:4.1.1')
+//    implementation('com.android.tools.build:gradle-api:4.1.1')
+    api gradleApi()
+    api localGroovy()
+}
+
+publishing {
+    publications {
+        MyPlugin(MavenPublication) {
+            groupId = 'com.cjj.mylibrary'
+            artifactId = 'MyPlugin'
+            version = '1.0.0'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = '../repo'
+        }
+    }
+}
