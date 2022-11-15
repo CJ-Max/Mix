@@ -1,11 +1,14 @@
 package com.cj.mix
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Looper
+import android.os.Process
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import com.cj.mix.util.ShellExecutor
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +19,18 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
+//            SignalCatch.sayHello()
+//            thread {
+//                SignalCatch().init {
+//                    println("cjjj test init Callback:$it")
+//                }
+//            }
+//            Process.sendSignal(Process.myPid(), Process.SIGNAL_QUIT)
+            ShellExecutor.execute("uptime");
+        }
+        Looper.getMainLooper().setMessageLogging {
+            println(" cjj $it")
         }
     }
 

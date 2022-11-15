@@ -2,6 +2,7 @@ package com.cj.mix.util
 
 import android.util.Log
 import kotlinx.coroutines.*
+import java.lang.Thread.sleep
 import kotlin.concurrent.thread
 import kotlin.coroutines.*
 
@@ -25,7 +26,12 @@ fun main() {
         delay(500)
         println("world")
     }
-    print("hello,")
+    println("hello,")
+    sleep(1000)
+}
+
+fun testCoroutine() {
+
 }
 
 /**

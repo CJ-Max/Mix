@@ -3,19 +3,35 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
+apply from: rootProject.file('config.gradle')
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    compileSdk 33
+    buildToolsVersion '32.0.2'
 
     defaultConfig {
         applicationId "com.cj.mix"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    ndkVersion '21.1.6352462'
+
+    sourceSets {
+        main {
+//            jni.srcDirs = ["src/main/cpp"]
+            jniLibs.srcDirs += ['libs']
+        }
     }
 
     buildTypes {
@@ -31,12 +47,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.cj.mix'
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation dep.core_ktx
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -47,13 +65,16 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // 协程核心库
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    implementation dep.coroutine_core
     // 协程Android支持库
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+    implementation dep.coroutine_android
     // 协程Java8支持库
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.3"
+    implementation dep.coroutine_jdk
     // lifecycle对于协程的扩展封装
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    implementation dep.viewmodel
+    implementation dep.lifecycle
+    implementation dep.livedata
+
+    implementation dep.arouter_api
+    annotationProcessor dep.arouter_compiler
 }
