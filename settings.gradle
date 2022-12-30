@@ -25,3 +25,6 @@ include ':testModule'
 include ':app'
 rootProject.name = "mix"
 println("cjj setting.gradle ")
+include ':cknife_annotation'
+include ':cknife_processor'
+include ':tools'
