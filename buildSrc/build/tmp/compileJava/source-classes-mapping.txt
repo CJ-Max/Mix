@@ -1,0 +1,2 @@
+com/cj/plugin/WebpPlugin.java
+ com.cj.plugin.WebpPlugin

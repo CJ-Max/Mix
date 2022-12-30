@@ -1,0 +1,2 @@
+com/cj/testmodule/BuildConfig.java
+ com.cj.testmodule.BuildConfig
