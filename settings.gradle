@@ -1,3 +1,26 @@
+gradle.allprojects{pro->
+    println("cjj gradle.allprojects ${pro.getName()}")
+}
+gradle.settingsEvaluated {
+    println("cjj gradle.settingsEvaluated")
+}
+gradle.buildStarted {
+    println("cjj gradle.buildStarted")
+}
+gradle.buildFinished {
+    println("cjj gradle.buildFinished")
+}
+
+gradle.projectsLoaded {
+    println("cjj gradle.projectsLoaded")
+}
+
+gradle.projectsEvaluated {
+    println("cjj gradle.projectsEvaluated")
+}
+
+
+include ':testModule'
 //include ':mylibrary'
 include ':app'
 rootProject.name = "mix"
